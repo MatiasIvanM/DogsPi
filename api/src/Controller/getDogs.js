@@ -15,7 +15,7 @@ const getDogs = async (req, res) => {
             },
         });
         
-        const apiDogs = await axios.get(`${URL}?api_key=${API_KEY}`);
+        const apiDogs = await axios.get(`${URL}api_key?${API_KEY}`);
         const apiDogsData = apiDogs.data;
         
 
@@ -26,8 +26,9 @@ const getDogs = async (req, res) => {
             height: dog.height,
             weight: dog.weight,
             life_span:dog.life_span,
-            temperament: dog.temperamentament,
+            temperament: dog.temperament,
         })); 
+        //include tem resolv
 
         let allDogsResult = [...DbDogs,...allDogs];
 
