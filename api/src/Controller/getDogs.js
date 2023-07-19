@@ -15,7 +15,7 @@ const getDogs = async (req, res) => {
             },
         });
         
-        const apiDogs = await axios.get(`${URL}api_key?${API_KEY}`);
+        const apiDogs = await axios.get(`${URL}`);/* api_key?${API_KEY} */
         const apiDogsData = apiDogs.data;
         
 
