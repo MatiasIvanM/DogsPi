@@ -6,7 +6,7 @@ const router = Router();
 
 const {getDogs} = require ('../Controller/getDogs')
 const {getIdRaza} = require('../Controller/IdRaza')
-const searchDogByName = require('../Controller/SearchByRaceName')
+const searchDogsByName = require('../Controller/SearchByRaceName')
 const getTemperaments = require('../Controller/getTemperament')
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -15,7 +15,7 @@ const getTemperaments = require('../Controller/getTemperament')
 router.use('/dogs', getDogs);
 router.use('/temperaments', getTemperaments)
 router.use('/dog/:id', getIdRaza);
-router.use('/dog/name?=', searchDogByName);
+router.use('/raza/:name', searchDogsByName);
 
 
 

@@ -29,7 +29,7 @@ const getRazaApi = async (idSearch) => {
       weight: e.weight,
       life_span: e.life_span,
       temperament: e.temperament,
-    })); NOT WORKIN NOT NECESARI*/
+    })); NOT WORKIN*/
     
     return response.data;
 };

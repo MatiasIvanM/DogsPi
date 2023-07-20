@@ -3,52 +3,71 @@ const { Op } = require('sequelize');
 const { Dog, Temperament } = require('../db');
 const { API_KEY, URL } = process.env;
 
-const searchDogsByName = async (req, res) => {
-  const { name } = req.query;
-  try {
-    // Buscar en la base de datos
-    const dbDogs = await Dog.findAll({
-      where: {
-        name: {
-          [Op.iLike]: `%${name}%`, // Búsqueda por coincidencia de nombre (sin distinguir mayúsculas o minúsculas)
-        },
-      },
-      include: {
-        model: Temperament,
-        attributes: ['id', 'name'],
-        through: {
-          attributes: [],
-        },
-      },
-    });
-
-    // Buscar en la API
-    const apiResponse = await axios.get(`${URL}/search?q=${name}&api_key=${API_KEY}`);
-    const apiDogs = apiResponse.data.map((dog) => ({
-      id: dog.id,
-      image: dog.image,
-      name: dog.name,
-      height: dog.height,
-      weight: dog.weight,
-      life_span: dog.life_span,
-      temperament: dog.temperament,
-    }));
-
-
-    // Combinar resultados de la base de datos y de la API
-    const dogs = [...dbDogs, ...apiDogs];
-
-
-    if (!dogs) {
-      return res.status(404).send('No se encontraron razas de perros con ese nombre');
+/* const searchDogsByName = async (req, res) => {
+    let misperros = await Dog.findAll()
+    let misperrosParse = []    
+    for (let i = 0; i < misperros.length; i++) {
+        let perrito = misperros[i];
+        let temperaments = await perrito.getTemperaments() 
+        perrito = perrito.dataValues;
+        temperaments = temperaments.map((el) => el.dataValues.name)
+        perrito.temperament = temperaments.toString()
+        misperrosParse.push(perrito)
     }
+    axios.get(`${URL}/search?q=${req.params}`)
+        .then(respuesta => {
+            let resultado = [...misperrosParse, ...respuesta.data].filter((el) => 
+                el.name.toLowerCase().includes(req.params.name.toLowerCase()))
+            if (resultado.length === 0) {
+                res.send(resultado)//llega a esta respuesta 
+            }
+            if(resultado.length > 0 && resultado.length < 9) {
+                res.send(resultado)
+            }
+            else if(resultado.length > 8) {
+                let nuevoarray = resultado.slice(0, 8)
+                res.send(nuevoarray)
+            } 
+            res.end()
+        })        
+        .catch(error => {
+            console.log(error)
 
-    res.status(200).send(dogs);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: 'Error al buscar las razas de perros por nombre' });
-  }
+        })
+        
+}; */
+
+const dbRaza = async (name) => {
+  const razaDb = await Dog.findAll({
+    where: {
+      name: {
+       [Op.iLike]: `%${name}`
+      }
+    }
+  })
+  console.log(razaDb);
+  return razaDb;
+
 };
 
+const apiRaza = async (name) => {
+  const apiRaza = await axios.get(`${URL}/search?q=${name}`)
+  console.log("🚀 ~ file: SearchByRaceName.js:56 ~ apiRaza ~ apiRaza:", apiRaza)
+  return apiRaza;
+
+}
+
+
+const searchDogsByName = async (req, res) => {
+  const name = req.params.name.toLowerCase();
+  try{
+    if(!name){
+      const allDogs = await dbRaza();
+      return res.status(200).send(allDogs);
+    }
+  }catch (error){
+    res.status(404).send({error:error.message})
+  }  
+}
 
 module.exports = searchDogsByName;
