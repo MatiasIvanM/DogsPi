@@ -100,6 +100,7 @@ const searchDogsByName = async (req, res) => {
 module.exports = searchDogsByName; */
 
 //the function is working, pending fix some implementation for the cuantity results
+//pending add the db search 
 async function searchDogs(req, res) {
   const searchTerm = req.query.q;
 
