@@ -2,7 +2,6 @@ const axios = require('axios');
 const { Op } = require('sequelize');
 const { Dog, Temperament } = require('../db');
 const { API_KEY, URL } = process.env;
-const {getDogs} = require('../Controller/getDogs');
 
 /* const searchDogsByName = async (req, res) => {
     let misperros = await Dog.findAll()
@@ -100,28 +99,44 @@ const searchDogsByName = async (req, res) => {
 
 module.exports = searchDogsByName; */
 
-const searchDogsByName = async (req, res) => {
-  try {
-    const allDogsResult = await getDogs();
-    let { name } = req.query;
-    let found = false;
-    var nameRaza = [];
+//the function is working, pending fix some implementation for the cuantity results
+async function searchDogs(req, res) {
+  const searchTerm = req.query.q;
 
-    for (let i = 0; i < allDogsResult.length; i++) {
-      if (allDogsResult[i].name.includes(name)) {
-        nameRaza.push(allDogsResult[i]);
-        found = true;
-      }
-    }
-
-    if (!found) {
-      return res.status(404).send({ error: 'No se encontraron razas que coincidan con el término de búsqueda.' });
-    }
-
-    res.status(200).send(nameRaza);
-  } catch (error) {
-    res.status(500).send({ error: error.message });
+  if (!searchTerm) {
+    return res.status(400).json({ error: 'Search term is missing in the request.' });
   }
-};
 
-module.exports = searchDogsByName;
+  try {
+    const response = await axios.get(URL, {
+      params: {
+        q: searchTerm,
+        API_KEY: API_KEY,
+      },
+    });
+
+    const data = response.data;
+   // Filter the data that match the search term
+   const matchedBreeds = data.filter((breed) => breed.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+   // Map the filtered data
+   const matchedBreedDetails = matchedBreeds.map((breed) => {
+     return {
+       id: breed.id,
+       image: breed.image,
+       name: breed.name,
+       height: breed.height,
+       weight: breed.weight,
+       life_span: breed.life_span,
+       temperament: breed.temperament,
+     };
+   });
+
+   return res.json({ matchedBreeds: matchedBreedDetails });
+ } catch (error) {
+   console.error('Error occurred during API request:', error.message);
+   return res.status(500).json({ error: 'Internal server error.' });
+ }
+}
+
+module.exports = searchDogs;
