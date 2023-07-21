@@ -2,6 +2,7 @@ const axios = require('axios');
 const { Op } = require('sequelize');
 const { Dog, Temperament } = require('../db');
 const { API_KEY, URL } = process.env;
+const {getDogs} = require('../Controller/getDogs');
 
 /* const searchDogsByName = async (req, res) => {
     let misperros = await Dog.findAll()
@@ -37,7 +38,9 @@ const { API_KEY, URL } = process.env;
         
 }; */
 
-const dbRaza = async (name) => {
+
+//segunda opcion
+/* const dbRaza = async (name) => {
   const razaDb = await Dog.findAll({
     where: {
       name: {
@@ -51,9 +54,9 @@ const dbRaza = async (name) => {
 };
 
 const apiRaza = async (name) => {
-  const apiRaza = await axios.get(`${URL}/search?q=${name}`)
-  console.log("🚀 ~ file: SearchByRaceName.js:56 ~ apiRaza ~ apiRaza:", apiRaza)
-  return apiRaza;
+  const apiRaza = await axios.get(`${URL}/search?q=${name}?API_KEY=${API_KEY}`)
+  console.log("🚀 ~ file: SearchByRaceName.js:56 ~ apiRaza ~ apiRaza:", apiRaza.data)
+  return apiRaza.data;
 
 }
 
@@ -62,12 +65,63 @@ const searchDogsByName = async (req, res) => {
   const name = req.params.name.toLowerCase();
   try{
     if(!name){
-      const allDogs = await dbRaza();
+      const allDogs = [...apiRaza(), ...dbRaza()];
       return res.status(200).send(allDogs);
     }
   }catch (error){
     res.status(404).send({error:error.message})
   }  
+} */
+
+
+/* const searchDogsByName = async (req, res) => {
+  
+  try{
+    const allDogsResult = await getDogs();
+  if(req.query.name.hasOwnProperty('name'))
+  let {name}= req.query;
+  let found = false;
+  var nameRaza=[];
+  
+  for(let i=0; i<allDogsResult.length; i++){
+    if (allDogsResult[i].name.includes(name)){
+        nameRaza.push(allDogsResult[i])
+        found = true;
+      }
+     }
+  
+
+  res.status(200).send(nameRaza);
+
+} catch(error){
+  res.status(404).send({error:error.message})
 }
+};
+
+module.exports = searchDogsByName; */
+
+const searchDogsByName = async (req, res) => {
+  try {
+    const allDogsResult = await getDogs();
+    let { name } = req.query;
+    let found = false;
+    var nameRaza = [];
+
+    for (let i = 0; i < allDogsResult.length; i++) {
+      if (allDogsResult[i].name.includes(name)) {
+        nameRaza.push(allDogsResult[i]);
+        found = true;
+      }
+    }
+
+    if (!found) {
+      return res.status(404).send({ error: 'No se encontraron razas que coincidan con el término de búsqueda.' });
+    }
+
+    res.status(200).send(nameRaza);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
 
 module.exports = searchDogsByName;
