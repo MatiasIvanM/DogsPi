@@ -118,10 +118,10 @@ async function searchDogs(req, res) {
 
     const data = response.data;
    // Filter the data that match the search term
-   const matchedBreeds = data.filter((breed) => breed.name.toLowerCase().includes(searchTerm.toLowerCase()));
+   const apimatchedBreeds = data.filter((breed) => breed.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
    // Map the filtered data
-   const matchedBreedDetails = matchedBreeds.map((breed) => {
+   const apimatchedBreedDetails = apimatchedBreeds.map((breed) => {
      return {
        id: breed.id,
        image: breed.image,
@@ -133,7 +133,18 @@ async function searchDogs(req, res) {
      };
    });
 
-   return res.json({ matchedBreeds: matchedBreedDetails });
+   const localMatchedBreeds = await Dog.findAll({
+    where: {
+      name: {
+        [Op.iLike]: `%${searchTerm}%`,
+      },
+    },
+  });
+
+//merge data 
+  const allMatchedBreeds = [...apimatchedBreedDetails, ...localMatchedBreeds];
+
+   return res.json({ matchedBreeds: allMatchedBreeds });
  } catch (error) {
    console.error('Error occurred during API request:', error.message);
    return res.status(500).json({ error: 'Internal server error.' });

@@ -51,6 +51,7 @@ const { Dog, Temperament } = require('../db');
             height: `${height.imperial} (${height.metric})`,
             weight: `${weight.imperial} (${weight.metric})`,
             life_span,
+            temperament,
           });
       
           const temperamentsArray = temperament.split(',').map((t) => t.trim());
