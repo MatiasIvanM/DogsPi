@@ -1,0 +1,40 @@
+.landingImg {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://c.wallhere.com/photos/95/39/1366x768_px_dog_Doge_face_Memes-519675.jpg!d');
+    background-position: absolute;
+    background-size:cover;
+    position:fixed;
+  }
+  
+  .btn_home{
+    position: relative;
+    top: 200%;
+    left: 60%; 
+  
+    background-color: #ffffffb6;
+    font-size: 30px;
+    padding: 6px 16px;
+    min-width: 64px;
+    box-sizing: border-box;
+  
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 10px;
+   
+  }
+  .btn_home:hover{
+    /* Destaca el elemento cunado se haga click en tonos grises */
+    filter: brightness(98%);
+    transition:.3s ease all;
+    box-shadow: black 15px;
+  }
+  
+  .title {
+    position: relative;
+    top: 20%;
+    left: 5%; 
+    color:#ffffff;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }

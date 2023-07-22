@@ -1,11 +1,18 @@
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LandingPage from './Views/LandingPage/LandingPage'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>Henry Dogs</h1>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        {/* <Route exact path="/home" component={HomePage} />
+        <Route exact path="/game/:id" component={Detail} />
+        <Route exact path="/form" component={FormPage} /> */}
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
