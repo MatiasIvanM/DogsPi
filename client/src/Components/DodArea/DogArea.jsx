@@ -3,7 +3,7 @@ import DogCard from "../DogCard/DogCard";
 import Pagination from "../Pagination/Pagination";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getDogs } from "../../Redux/actions";
+import { getDogs } from "../../Redux/Actions/actions";
 import styles from "./DogArea.module.css";
 
 export default function DogArea() {

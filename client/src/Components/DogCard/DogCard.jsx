@@ -6,7 +6,7 @@ export default function DogCard( { id, name, image, temperament, temperaments } 
     return (
       <Fragment>
         <div className={styles.dogCard}>
-          <Link to={"/dogs/" + id}>
+          <Link to={"/dog/:id" + id}>
             <div className={styles.titleArea}>
               <h4 className={styles.dogName}>{name}</h4>
             </div>
@@ -21,7 +21,7 @@ export default function DogCard( { id, name, image, temperament, temperaments } 
               <div className={styles.imageArea}>
                 <img
                   className={styles.dogImage}
-                  src={image}
+                  src={image.url}
                   alt={`A dog wich is ` + { temperament }}
                   height="140px"
                 />
@@ -35,7 +35,7 @@ export default function DogCard( { id, name, image, temperament, temperaments } 
     return (
       <Fragment>
         <div className={styles.dogCard}>
-          <Link to={"/dogs/" + id}>
+          <Link to={"/dog/:id" + id}>
             <div className={styles.titleArea}>
               <h4 className={styles.dogName}>{name}</h4>
             </div>
