@@ -7,9 +7,9 @@ export default function Landing () {
         <div className={styles.landingImg}>
           <image src={styles.landing}>
           <div className={styles.title}>
-            <h1>Welcome to my World! </h1>
+            <h1>Welcome to my Woof! </h1>
           <Link to="/home" style={{ textDecoration: "none" }}>
-            <button className={styles.btn_home}> Start </button>
+            <button className={styles.btn_home}> Woof! Woof! </button>
           </Link>
           </div>
         </image>
