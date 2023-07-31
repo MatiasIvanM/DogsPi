@@ -15,7 +15,7 @@ const getDogs = async (req, res) => {
             },
         });
         
-        const apiDogs = await axios.get(`${URL}`);/* api_key?${API_KEY} */
+        const apiDogs = await axios.get(`${URL}?api_key=${API_KEY}`);/* api_key?${API_KEY} */
         const apiDogsData = apiDogs.data;
         
 
@@ -23,8 +23,14 @@ const getDogs = async (req, res) => {
             id: dog.id,
             image: dog.image,
             name: dog.name,
-            height: dog.height,
-            weight: dog.weight,
+            height: dog.height,/* map((e)=>{(
+                e.metric,
+                e.imperial 
+                )}), */
+            weight:dog.weight,/* map((e)=>{(
+                e.metric,
+                e.imperial
+                )}), */
             life_span:dog.life_span,
             temperament: dog.temperament,
         })); 

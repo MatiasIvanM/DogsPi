@@ -71,6 +71,3 @@ const { Dog, Temperament } = require('../db');
       };
       
       module.exports = saveDog;
-
-
-module.exports = saveDog;
