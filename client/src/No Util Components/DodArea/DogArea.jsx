@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
+/* import React, { Fragment } from "react";
 import DogCard from "../DogCard/DogCard";
 import Pagination from "../Pagination/Pagination";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getDogs } from "../../Redux/Actions/actions";
+/* import { getDogs } from "../../Redux/Actions/actions"; */
 import styles from "./DogArea.module.css";
 
-export default function DogArea() {
+/* export default function DogArea() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs);
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,9 +43,11 @@ export default function DogArea() {
             image={el.image}
             temperament={el.temperament}
             temperaments={el.temperaments}
+            weight={el.weight}
           />
         )})}
       </div>
     </Fragment>
   );
-}
+}  */
+

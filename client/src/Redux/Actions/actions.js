@@ -1,4 +1,4 @@
-import axios from 'axios';
+/* import axios from 'axios';
 
 export function orderByName(payload) {
     return {
@@ -50,7 +50,7 @@ export function getDogsByName(name) {
 
 export function getTemperamentsList() {
     return async function (dispatch) {
-        var json = await axios.get('http://localhost:3001/temperament');
+        var json = await axios.get('http://localhost:3001/temperaments');
         var listOfTemperaments = json.data.map(el => el.name)
         return dispatch({
             type: 'GET_TEMPERAMENTS_LIST',
@@ -61,7 +61,7 @@ export function getTemperamentsList() {
 
 export function postDog(payload) {
     return async function (dispatch) {
-        const response = await axios.post('http://localhost:3001/dogs', payload);
+        const response = await axios.post('http://localhost:3001/create', payload);
         return response;
     }
 }
@@ -80,7 +80,7 @@ export function getDogsByBreed(payload) {
     }
 }
 
-export function getBreeds() {
+/* export function getBreeds() {
     return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/breedGroups');
         return dispatch({
@@ -88,12 +88,12 @@ export function getBreeds() {
             payload: json.data
         });
     }
-}
+} */
 
-export function filterDogsByTemperament(payload) {
+/* export function filterDogsByTemperament(payload) {
     return async function (dispatch) {
         try {
-            var json = await axios.get(`http://localhost:3001/dog/?temperament=${payload}`);
+            var json = await axios.get(`http://localhost:3001/dog/temperaments`);
             return dispatch({
                 type: 'GET_DOGS_BY_TEMP',
                 payload: json.data
@@ -114,7 +114,7 @@ export function filterCreated(payload) {
 export function getDetails(id) {
     return async function (dispatch) {
         try {
-            var json = await axios.get(`http://localhost:3001/dogs/${id}`)
+            var json = await axios.get(`http://localhost:3001/dog/${id}`)
             return dispatch({
                 type: 'GET_DETAILS',
                 payload: json.data
@@ -131,4 +131,89 @@ export function deleteDetails() {
         type: 'DELETE_DETAILS'
     })
 }
+}  */
+
+
+import axios from 'axios';
+
+const url = 'http://localhost:3001';
+
+export function getAllDogs() {
+    return async function (dispatch) {
+        var json = await axios.get(`${url}/dogs`);
+        return dispatch({//necesario para despachar la accion
+            type: "GET_ALL_DOGS",
+            payload: json.data
+        });
+    }
+};
+
+export function getTemperaments() {
+    return async function (dispatch) {
+        var json = await axios.get(`${url}/temperaments`);
+        return dispatch({
+            type: "GET_TEMPERAMENTS",
+            payload: json.data,
+        });
+      }  
+  };
+
+
+  export function filterByTemperament(payload){
+    return{
+        type: "GET_FILTER_TEMPERAMENTS",
+        payload
+    }
+  };
+
+  export function getName(payload) {//dogs by name
+    return async function (dispatch) {//Dispatch que podemos usar gracias a la asincronia provista por el middleware thunk
+        try {
+            var json = await axios.get(`${url}/raza/:name${payload}`)
+            return dispatch ({
+                type: "GET_BREED",
+                payload: json.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+};
+
+export function orderByName(payload) {
+    return { 
+        type: "ORDER_BY_NAME",
+        payload
+    }
+};
+
+export function orderByWeight(payload) {
+    return { 
+        type: "ORDER_BY_WEIGHT",
+        payload
+    }
+};
+
+
+export function showDogDetails(id) {
+    return async function (dispatch) {
+        try {
+            var json = await axios.get(`${url}/dog${id}`);
+        return dispatch({
+            type: "SHOW_DOG_DETAILS",
+            payload: json.data
+        });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+};
+
+
+export function postDog(payload) {
+    return async function () {
+        const data = await axios.post(`${url}/create`, payload);
+        return data;
+    }
 }
+

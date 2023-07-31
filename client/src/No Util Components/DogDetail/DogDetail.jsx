@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+/* import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDetails, getDetails } from "../../redux/actions/index";
@@ -110,4 +110,4 @@ export default function DogDetail(props) {
       )}
     </Fragment>
   );
-}
+} */

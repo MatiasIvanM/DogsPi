@@ -1,4 +1,4 @@
-import styles from './Pagination.module.css'
+/* import styles from './Pagination.module.css'
 
 export default function Pagination({dogsPerPage, allDogs, pagination, currentPage}) {
     const pageNumbers = []
@@ -20,4 +20,4 @@ export default function Pagination({dogsPerPage, allDogs, pagination, currentPag
             </ul>
         </nav>
     )
-};
+}; */

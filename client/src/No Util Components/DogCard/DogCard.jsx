@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+/* import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import styles from "./DogCard.module.css";
 export default function DogCard( { id, name, image, temperament, temperaments } ) {
@@ -6,7 +6,7 @@ export default function DogCard( { id, name, image, temperament, temperaments } 
     return (
       <Fragment>
         <div className={styles.dogCard}>
-          <Link to={"/dog/:id" + id}>
+          <Link to={`/dog/${id}`}>
             <div className={styles.titleArea}>
               <h4 className={styles.dogName}>{name}</h4>
             </div>
@@ -35,7 +35,7 @@ export default function DogCard( { id, name, image, temperament, temperaments } 
     return (
       <Fragment>
         <div className={styles.dogCard}>
-          <Link to={"/dog/:id" + id}>
+          <Link to={`/dog/${id}`}>
             <div className={styles.titleArea}>
               <h4 className={styles.dogName}>{name}</h4>
             </div>
@@ -63,4 +63,4 @@ export default function DogCard( { id, name, image, temperament, temperaments } 
       </Fragment>
     );
   }
-}
+} */

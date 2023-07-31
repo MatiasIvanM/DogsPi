@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/* import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getDogsByName } from "../../Redux/Actions/actions";
 import styles from "./SearchBar.module.css";
@@ -32,4 +32,4 @@ export default function SearchBar() {
       </button>
     </div>
   );
-}
+} */
