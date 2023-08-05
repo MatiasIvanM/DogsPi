@@ -195,25 +195,68 @@ export function orderByWeight(payload) {
 };
 
 
-export function showDogDetails(id) {
-    return async function (dispatch) {
+    export function showDogDetails(id) {
+        return async function (dispatch) {
         try {
-            var json = await axios.get(`${url}/dog${id}`);
-        return dispatch({
+            const response = await axios.get(`${url}/dog/${id}`);
+            const data = response.data;
+            dispatch({
             type: "SHOW_DOG_DETAILS",
-            payload: json.data
-        });
+            payload: data,
+            });
         } catch (error) {
             console.log(error);
         }
+        };
     }
-};
+    //modificacin para acceder a la url por image_reference
+    /* export function showDogDetails(id) {
 
+        return async function (dispatch) {
+          try {
+            const response = await axios.get(`${url}/dog/${id}`);
+            const details = response.data;
+      
+            // Si hay un reference_image_id, hacemos otra petición para obtener la URL de la imagen
+            if (details.reference_image_id) {
+              const imageResponse = await axios.get(`https://api.thedogapi.com/v1/images/${details.reference_image_id}`);
+              const imageDetails = imageResponse.data;
+              details.image.url = imageDetails.url; // Agregamos la URL de la imagen a los detalles
+            }
+      
+            return dispatch({
+              type: "SHOW_DOG_DETAILS",
+              payload: details,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        };
+      } */
+   
+      export function postDog(payload) {
+        return async function(dispatch) {
+          try {
+            const response = await axios.post(`${url}/create`, payload);
 
-export function postDog(payload) {
-    return async function () {
-        const data = await axios.post(`${url}/create`, payload);
-        return data;
-    }
-}
+            alert('Nuevo perro creado exitosamente');
+
+            console.log('Nuevo perro creado exitosamente:', response.data);
+      
+            return response.data;
+          } catch (error) {
+            alert('Error al crear el perro');
+      
+            console.error('Error al crear el perro:', error);
+      
+            throw error;
+          }
+        };
+      }
+      /* export function postDog(payload) {
+        return async function () {
+            const data = await axios.post(`${url}/create`, payload);
+            return data;
+        }
+    } */
 

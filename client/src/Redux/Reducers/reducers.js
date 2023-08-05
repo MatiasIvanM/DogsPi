@@ -143,7 +143,7 @@ const rootReducer = (state = inicialState, action) => {
         ...state,
         temperaments: filteresTemp,
       };
-
+        //revisar funcionamento del filtrado rompe por .find()is not a function
     case "GET_FILTER_TEMPERAMENTS":
       const allDogs = state.allDogs;
       let filteredDogs = [];
@@ -193,7 +193,7 @@ const rootReducer = (state = inicialState, action) => {
         ...state,
         dogs: sortedName,
       };
-
+        //no ordena por pesos , revisar funcinalidad 
     case "ORDER_BY_WEIGHT":
         const sortedWeight =
           action.payload === "min_weight"
@@ -221,19 +221,16 @@ const rootReducer = (state = inicialState, action) => {
         };
 
 
-    case "SHOW_DOG_DETAILS":
-        let myDetails = action.payload
-            if (!myDetails[0].temperaments[0]) { //agregamos "no-temperaments" a arreglos sin elementos dentro
-              myDetails[0].temperaments[0] = "no-temperaments"
-            }
-            return {
-              ...state,
-              details: myDetails
-            };
-          default:
-            return state;
-        }
+        case "SHOW_DOG_DETAILS":
+      const { payload } = action;
+      return {
+        ...state,
+        details: payload,
       };
+    default:
+      return state;
+ }
+};
       
       
 

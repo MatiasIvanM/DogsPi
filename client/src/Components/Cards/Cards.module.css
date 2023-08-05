@@ -1,0 +1,44 @@
+
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align:center;
+    justify-content: center;
+    margin: 8px;
+    width: 200px;
+    height: 320px; /* Ajustamos una altura fija para todas las tarjetas */
+  
+    a {
+      color: #333;
+      text-decoration: none;
+      display: block;
+    }
+  
+}
+  .imageContainer {
+  width: 100%;
+  height: 200px; /* Ajusta el tamaño fijo deseado */
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+   img {
+  width: 100%;
+  height: 100%;
+  object-fit:contain; /* La imagen se ajusta manteniendo su relación de aspecto */
+  }
+  
+    h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      text-decoration: none;
+    }
+  
+    p {
+      font-size: 14px;
+      margin-bottom: 4px;
+      text-decoration: none;
+    }
