@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    imagen:{
+    image:{
       type:DataTypes.STRING,
     },
     name: {

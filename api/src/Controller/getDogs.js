@@ -21,7 +21,7 @@ const getDogs = async (req, res) => {
 
          const allDogs = apiDogsData.map((dog)=>({
             id: dog.id,
-            image: dog.image,
+            image: dog.image.url,
             name: dog.name,
             height: dog.height,/* map((e)=>{(
                 e.metric,
