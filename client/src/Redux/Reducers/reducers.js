@@ -115,127 +115,124 @@ function rootReducer(state = initialState, action) {
     }
 } export default rootReducer; */
 
-const inicialState = {
-    dogs: [],
-    temperaments: [],
-    allDogs: [],
-    details:[]
+
+const initialState = {
+  dogs: [],
+  temperaments: [],
+  allDogs: [],
+  details: [],
+  originFilter: "Todos",
+};
+
+const compareByWeight = (a, b) => {
+  const weightA = parseInt(a.weight.metric.split(" - ")[0]);
+  const weightB = parseInt(b.weight.metric.split(" - ")[0]);
+
+  if (weightA < weightB) {
+    return -1;
+  }
+  if (weightA > weightB) {
+    return 1;
+  }
+  return 0;
 };
 
 
-const rootReducer = (state = inicialState, action) => {
- switch (action.type) {
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
     case "GET_ALL_DOGS":
-      /*  action.payload.forEach(elem =>{
-            if(!elem.temperaments[0]){
-                elem.temperaments[0] = "No hay temperamentos"
-            }
-        }); */
-        return {
-        ...state,
-         dogs: action.payload,
-         allDogs: action.payload,
-        };
-
-    case "GET_TEMPERAMENTS": 
-     const filteresTemp = action.payload.filter((temp) => temp.name !== "");
       return {
         ...state,
-        temperaments: filteresTemp,
+        dogs: action.payload,
+        allDogs: action.payload,
       };
-        //revisar funcionamento del filtrado rompe por .find()is not a function
+
+    case "GET_TEMPERAMENTS":
+      const filteredTemperaments = action.payload.filter(
+        (temp) => temp.name !== ""
+      );
+      return {
+        ...state,
+        temperaments: filteredTemperaments,
+      };
+
     case "GET_FILTER_TEMPERAMENTS":
-      const allDogs = state.allDogs;
-      let filteredDogs = [];
       if (action.payload === "Todos") {
-        filteredDogs = allDogs;
-      } else {
-        for (let i = 0; i < allDogs.length; i++) {
-          let found = allDogs[i].temperaments.find((t) => t === action.payload);
-          if (found) {
-            filteredDogs.push(allDogs[i]);
-          }
-        }
-      }
-      return {
-        ...state,
-        dogs: filteredDogs,
-      };
-
-    case "GET_BREED":
-        return {
-            ...state,
-            dogs:  action.payload,
-        };
-    
-    case "ORDER_BY_NAME":
-        const sortedName =
-        action.payload === "A-Z"
-          ? state.allDogs.sort((a, b) => {
-              if (a.name > b.name) {
-                return 1;
-              }
-              if (b.name > a.name) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.allDogs.sort((a, b) => {
-              if (a.name > b.name) {
-                return -1;
-              }
-              if (b.name > a.name) {
-                return 1;
-              }
-              return 0;
-            });
-      return {
-        ...state,
-        dogs: sortedName,
-      };
-        //no ordena por pesos , revisar funcinalidad 
-    case "ORDER_BY_WEIGHT":
-        const sortedWeight =
-          action.payload === "min_weight"
-            ? state.allDogs.sort((a, b) => {
-                if (parseInt(a.weight[1]) > parseInt(b.weight[1])) {
-                  return 1;
-                }
-                if (parseInt(b.weight[1]) > parseInt(a.weight[1])) {
-                  return -1;
-                }
-                return 0;
-              })
-            : state.allDogs.sort((a, b) => {
-                if (parseInt(a.weight[1]) > parseInt(b.weight[1])) {
-                  return -1;
-                }
-                if (parseInt(b.weight[1]) > parseInt(a.weight[1])) {
-                  return 1;
-                }
-                return 0;
-              });
         return {
           ...state,
-          dogs: sortedWeight,
+          dogs: state.allDogs,
         };
+      } else {
+        const filteredByTemperaments = state.allDogs.filter((dog) => {
+          return dog.temperament && dog.temperament.includes(action.payload);
+        });
+        return {
+          ...state,
+          dogs: filteredByTemperaments,
+        };
+      }
 
+      case "FILTER_BY_ORIGIN":
+        const filteredByOrigin = action.payload === "DB"
+          ? state.allDogs.filter((dog) => dog.origin === "DB")
+          : action.payload === "API"
+          ? state.allDogs.filter((dog) => dog.origin === "API")
+          : state.allDogs;
 
-        case "SHOW_DOG_DETAILS":
-      const { payload } = action;
+        return {
+          ...state,
+          dogs: filteredByOrigin,
+          originFilter: action.payload,
+        };
+        
+
+    case "ORDER_BY_WEIGHT":
+      const { min, max } = action.payload;
+      const sortedByWeight = state.dogs.slice().sort((a, b) => {
+        // eslint-disable-next-line no-unused-vars
+        const weightA = parseInt(a.weight.metric.split(" - ")[0]);
+        // eslint-disable-next-line no-unused-vars
+        const weightB = parseInt(b.weight.metric.split(" - ")[0]);
+
+        if (min === 1 && max === 100) {
+          // Ascendente: de liviano a pesado
+          return compareByWeight(a, b);
+        } else if (min === 100 && max === 1) {
+          // Descendente: de pesado a liviano
+          return compareByWeight(b, a);
+        } else {
+          // En caso de otros valores, no se aplica ordenamiento
+          return 0;
+        }
+      });
+
       return {
         ...state,
-        details: payload,
+        dogs: sortedByWeight,
       };
+
+      case "ORDER_BY_NAME":
+        const sortedByName = action.payload === "A-Z"
+          ? state.dogs.slice().sort((a, b) => a.name.localeCompare(b.name)) // Ordenar de A-Z
+          : state.dogs.slice().sort((a, b) => b.name.localeCompare(a.name)); // Ordenar de Z-A
+
+        return {
+          ...state,
+          dogs: sortedByName,
+        };
+
+      case "SHOW_DOG_DETAILS":
+        const { payload } = action;
+        return {
+          ...state,
+          details: payload,
+        };
+
+      
+
     default:
       return state;
- }
+  }
 };
-      
-      
 
-
-
-export default rootReducer;   
-
-
+export default rootReducer;

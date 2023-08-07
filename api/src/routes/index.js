@@ -16,7 +16,7 @@ const getTemperaments = require('../Controller/getTemperament')
 router.use('/dogs', getDogs);
 router.use('/temperaments', getTemperaments)
 router.use('/dog/:id', getIdRaza);
-router.use('/raza/:name', searchDogs);
+router.use('/raza/search', searchDogs);
 router.use('/create',saveDog);
 
 

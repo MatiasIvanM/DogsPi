@@ -109,6 +109,7 @@ const Detail = () => {
         <div className={style.container_elements}>
           <div className={style.right_container}>
             <h1>{name}</h1>
+            {/* <h2>{id}</h2>  RENDER ID NO ME GUSTA COMO QUEDA*/}
             <h3>{`Height: ${height?.metric}`}</h3>
             <h3>{`Weight: ${weight?.metric}`}</h3>
             <h3>{`Lifespan: ${life_span}`}</h3>
