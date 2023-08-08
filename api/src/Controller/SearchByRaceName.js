@@ -104,9 +104,9 @@ module.exports = searchDogsByName; */
 async function searchDogs(req, res) {
   const searchTerm = req.query.q;
 
-  if (!searchTerm) {
+  /* if (!searchTerm) {
     return res.status(400).json({ error: 'Search term is missing in the request.' });
-  }
+  } */
 
   try {
     const response = await axios.get(URL, {
@@ -124,7 +124,7 @@ async function searchDogs(req, res) {
    const apimatchedBreedDetails = apimatchedBreeds.map((breed) => {
      return {
        id: breed.id,
-       image: breed.image,
+       image: breed.image.url,
        name: breed.name,
        height: breed.height,
        weight: breed.weight,
@@ -144,10 +144,14 @@ async function searchDogs(req, res) {
 //merge data 
   const allMatchedBreeds = [...apimatchedBreedDetails, ...localMatchedBreeds];
 
-   return res.json({ matchedBreeds: allMatchedBreeds });
+  if (allMatchedBreeds.length === 0) {
+    return res.status(404).json({ error: 'No se encontraron resultados para la búsqueda.' });
+  } else {
+   return res.json( allMatchedBreeds )};
  } catch (error) {
    console.error('Error occurred during API request:', error.message);
-   return res.status(500).json({ error: 'Internal server error.' });
+   //return res.status(500).json({ error: 'Internal server error.' });
+   return res.status(400).json({ error: 'Search term is missing in the request.' });
  }
 }
 

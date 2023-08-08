@@ -147,6 +147,7 @@ const rootReducer = (state = initialState, action) => {
         allDogs: action.payload,
       };
 
+
     case "GET_TEMPERAMENTS":
       const filteredTemperaments = action.payload.filter(
         (temp) => temp.name !== ""
@@ -173,12 +174,18 @@ const rootReducer = (state = initialState, action) => {
       }
 
       case "FILTER_BY_ORIGIN":
-        const filteredByOrigin = action.payload === "DB"
-          ? state.allDogs.filter((dog) => dog.origin === "DB")
-          : action.payload === "API"
-          ? state.allDogs.filter((dog) => dog.origin === "API")
-          : state.allDogs;
-
+        const filteredByOrigin = state.allDogs.filter((dog) => {
+          if (action.payload === "API") {
+            // Filtrar los datos que no tienen la propiedad 'createdAt'
+            return !("createdAt" in dog);
+          } else if (action.payload === "DB") {
+            // Filtrar los datos que tienen la propiedad 'createdAt'
+            return "createdAt" in dog;
+          } else {
+            return true; // No se aplica ningún filtro
+          }
+        });
+      
         return {
           ...state,
           dogs: filteredByOrigin,
@@ -210,6 +217,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dogs: sortedByWeight,
       };
+
+
+      case "GET_NAME":
+      return {
+        ...state,
+        dogs: action.payload, 
+      };
+    
 
       case "ORDER_BY_NAME":
         const sortedByName = action.payload === "A-Z"

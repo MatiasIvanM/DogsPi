@@ -68,6 +68,17 @@
   gap: 20px;
 }
 
+hr {
+  border: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.error_message {
+  color: red;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
 /* .container_card { ajuste de las cards
   display: flex;
   justify-content: center;
@@ -83,8 +94,3 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 } */ 
 
-
-hr {
-  border: 1px solid #ccc;
-  margin: 10px 0;
-}
