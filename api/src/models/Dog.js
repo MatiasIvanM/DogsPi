@@ -10,27 +10,40 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    image:{
-      type:DataTypes.STRING,
-    },
-    name: {
+    name:{
       type: DataTypes.STRING,
       allowNull: false,
     },
-    height: {
+    weight:{
       type: DataTypes.JSON,
-      allowNull: false,
+    allowNull: false,
     },
-    weight: {
+
+    height:{
       type: DataTypes.JSON,
-      allowNull: false,
+    allowNull: false,
+
+      /* imperial :{
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      metric :{
+        type: DataTypes.STRING,
+        allowNull: false,
+      } */
     },
     life_span:{
       type: DataTypes.STRING,
-      //allow null¿¿¿
+      allowNull: true,
     },
-  },
-  {
-    timestamps:false,
+    image:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    createdInDB: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    }
   });
 };
