@@ -98,15 +98,15 @@ const NavBar = ({
               <option disabled value="">
                 Weight
               </option>
-              <option value="ASC">Liviano a Pesado</option>
-              <option value="DESC">Pesado a Liviano</option>
+              <option value="ASC">Ligthest First</option>
+              <option value="DESC">Heavisest First</option>
             </select>
 
             <select onChange={handleFilterByTemperaments} defaultValue="">
               <option disabled value="">
                 Temperaments
               </option>
-              <option value="Todos">Todos</option>
+              <option value="Todos">All</option>
               {allTemperaments?.map((temp) => (
                 <option value={temp.name} key={temp.id}>
                   {temp.name}
@@ -115,7 +115,7 @@ const NavBar = ({
             </select>
 
             <select onChange={handleOriginFilterChange} value={originFilter}>
-              <option value="Todos">Todo</option>
+              <option value="Todos">All</option>
               <option value="API">API</option>
               <option value="DB">DB</option>
             </select>
@@ -124,13 +124,13 @@ const NavBar = ({
       </div>
       <div className={`${style.header_right}`}>
         <Link to="/create">
-          <button className={`${style.button_create_dog}`}>Crear Raza</button>
+          <button className={`${style.button_create_dog}`}>Add New Breed</button>
         </Link>
       </div>
       <form onSubmit={handleSearchSubmit} className={style.searchForm}>
         <input
           type="text"
-          placeholder="Buscar razas de perros..."
+          placeholder="Search Breed..."
           value={searchTerm}
           onChange={handleSearchInputChange}
         />
@@ -141,7 +141,7 @@ const NavBar = ({
             ))}
           </ul>
         )}
-        <button type="submit">Buscar</button>
+        <button type="submit">Search</button>
       </form>
     </nav>
   );

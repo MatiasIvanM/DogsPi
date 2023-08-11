@@ -34,7 +34,7 @@ const Card = ({ dog }) => {
           <img src={dog.image} alt={dog.name} />
         </div>
         <h2>{dog.name}</h2>
-        <p>{`Weight: ${dog.weight.metric} kg`}</p>
+        <p>{`Weight: ${dog.weight.metric || dog.weight.imperial} kg`}</p>
         <p>{`Temperament: ${formattedTemperament}`}</p>
       </div>
     </a>

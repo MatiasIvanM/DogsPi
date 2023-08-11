@@ -1,205 +1,152 @@
-/* import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { postDog } from '../../Redux/Actions/actions';
-import Dropzone from 'react-dropzone';
-import style from './Form.module.css';
-
-const DogForm = () => {
-  const dispatch = useDispatch();
-
-  const [formData, setFormData] = useState({
-    name: '',
-    height: '',
-    weight: '',
-    life_span: '',
-    image: null,
-  });
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleImageUpload = (files) => {
-    setFormData({
-      ...formData,
-      image: files[0],
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Aquí realizas la petición POST a tu backend para agregar una nueva raza de perros
-    dispatch(postDog(formData));
-    // Luego puedes redirigir a la página de detalles de la nueva raza agregada
-    // history.push('/dog/' + newDogId);
-  };
-
-  return (
-    <div className={style.form_container}>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="height"
-          placeholder="Height"
-          value={formData.height}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="weight"
-          placeholder="Weight"
-          value={formData.weight}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="life_span"
-          placeholder="Life Span"
-          value={formData.life_span}
-          onChange={handleInputChange}
-        />
-        <Dropzone onDrop={handleImageUpload}>
-          {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()} className={style.dropzone}>
-              <input {...getInputProps()} />
-              <p>Drag 'n' drop an image here, or click to select image</p>
-              {formData.image && <img src={URL.createObjectURL(formData.image)} alt="Selected" />}
-            </div>
-          )}
-        </Dropzone>
-        <button type="submit">Add Dog</button>
-      </form>
-    </div>
-  );
-};
-
-export default DogForm; */
-
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'; // Importamos useHistory
-import { postDog } from '../../Redux/Actions/actions';
-import style from './Form.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { createDog } from '../../Redux/Actions/actions'; // Importa la acción de crear perro
 
-
-const DogForm = () => {
+const FormPage = () => {
   const dispatch = useDispatch();
-  const history = useHistory(); // Obtenemos el objeto history
+  const temperaments = useSelector((state) => state.temperaments);
 
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     name: '',
-    height: '',
-    weight: '',
+    min_height: '',
+    max_height: '',
+    min_weight: '',
+    max_weight: '',
     life_span: '',
-    image: null,
+    image: '',
+    selectedTemperaments: [], // Aquí almacenamos los temperamentos seleccionados
   });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
       [name]: value,
-    });
+    }));
   };
 
-  const handleImageUpload = (files) => {
-    setFormData({
-      ...formData,
-      image: files[0],
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Aquí realizas la petición POST a tu backend para agregar una nueva raza de perros
-    dispatch(postDog(formData));
-    // Luego puedes redirigir a la página de detalles de la nueva raza agregada
-    // history.push('/dog/' + newDogId);
-  };
-
-  const handleCancel = () => {
-    const shouldCancel = window.confirm(
-      'Are you sure you want to cancel? Your changes will not be saved.'
-    );
-    if (shouldCancel) {
-      // Redirigir al home
-      history.push('/home');
+  const handleSelectTemperament = (e) => {
+    const selectedTemperament = e.target.value;
+    if (!form.selectedTemperaments.includes(selectedTemperament)) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        selectedTemperaments: [...prevForm.selectedTemperaments, selectedTemperament],
+      }));
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes realizar las validaciones necesarias con JavaScript antes de hacer el post
+    // ...
+
+    const dogData = {
+      name: form.name,
+      height: {
+        metric: `${form.min_height} - ${form.max_height} cm`,
+      },
+      weight: {
+        metric: `${form.min_weight} - ${form.max_weight} kg`,
+      },
+      life_span: form.life_span,
+      image: form.image,
+      temperaments: form.selectedTemperaments,
+    };
+
+    dispatch(createDog(dogData)); // Llama a la acción para crear el perro
+    // Aquí puedes realizar alguna acción adicional después de crear el perro
+    // ...
+
+    // Limpia los campos del formulario
+    setForm({
+      name: '',
+      min_height: '',
+      max_height: '',
+      min_weight: '',
+      max_weight: '',
+      life_span: '',
+      image: '',
+      selectedTemperaments: [],
+    });
+  };
+
   return (
-    <div className={style.form_container}>
-      <form onSubmit={handleSubmit} className={style.form}>
-        <h2 className={style.form_title}>Add a New Dog</h2>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleInputChange}
-          className={style.form_input}
-        />
-        <input
-          type="text"
-          name="height"
-          placeholder="Height"
-          value={formData.height}
-          onChange={handleInputChange}
-          className={style.form_input}
-        />
-        <input
-          type="text"
-          name="weight"
-          placeholder="Weight"
-          value={formData.weight}
-          onChange={handleInputChange}
-          className={style.form_input}
-        />
-        <input
-          type="text"
-          name="life_span"
-          placeholder="Life Span"
-          value={formData.life_span}
-          onChange={handleInputChange}
-          className={style.form_input}
-        />
-        <label className={style.file_input_label}>
-          Drag 'n' drop an image here, or click to select image
-          <input
-            type="file"
-            name="image"
-            accept=".jpg, .jpeg, .png"
-            onChange={(e) => handleImageUpload(e.target.files)}
-            className={style.file_input}
-          />
-        </label>
-        {formData.image && (
-          <img
-            src={URL.createObjectURL(formData.image)}
-            alt="Selected"
-            className={style.selected_image}
-          />
-        )}
-        <button type="submit" className={style.form_button}>
-          Add Dog
-        </button>
-        <button type="button" onClick={handleCancel} className={style.form_button}>
-          Cancel
-        </button>
+    <div>
+      <h1>Create a New Dog</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name:</label>
+          <input type="text" name="name" value={form.name} onChange={handleChange} />
+        </div>
+        <div>
+  <label>Minimum Height (cm):</label>
+  <input
+    type="text"
+    name="min_height"
+    value={form.min_height}
+    onChange={handleChange}
+  />
+</div>
+<div>
+  <label>Maximum Height (cm):</label>
+  <input
+    type="text"
+    name="max_height"
+    value={form.max_height}
+    onChange={handleChange}
+  />
+</div>
+<div>
+  <label>Minimum Weight (kg):</label>
+  <input
+    type="text"
+    name="min_weight"
+    value={form.min_weight}
+    onChange={handleChange}
+  />
+</div>
+<div>
+  <label>Maximum Weight (kg):</label>
+  <input
+    type="text"
+    name="max_weight"
+    value={form.max_weight}
+    onChange={handleChange}
+  />
+</div>
+<div>
+  <label>Life Span:</label>
+  <input
+    type="text"
+    name="life_span"
+    value={form.life_span}
+    onChange={handleChange}
+  />
+</div>
+<div>
+  <label>Image URL:</label>
+  <input
+    type="text"
+    name="image"
+    value={form.image}
+    onChange={handleChange}
+  />
+</div>
+{/* Temperament selection */}
+<div>
+  <label>Temperaments:</label>
+  <select multiple onChange={handleSelectTemperament}>
+    {temperaments.map((temp) => (
+      <option key={temp.id} value={temp.name}>
+        {temp.name}
+      </option>
+    ))}
+  </select>
+</div>
+<button type="submit">Create Dog</button>
       </form>
     </div>
   );
 };
 
-export default DogForm;
+export default FormPage;
