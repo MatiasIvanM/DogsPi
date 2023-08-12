@@ -125,7 +125,7 @@ const rootReducer = (state = initialState, action) => {
           details: payload,
         };
 
-        case "ADD_NEW_DOG":
+        case 'ADD_NEW_DOG':
       return {
         ...state,
         dogs: [...state.dogs, action.payload],

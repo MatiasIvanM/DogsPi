@@ -82,30 +82,8 @@ export function showDogDetails(id) {
         }
         };
     }
-    //modificacin para acceder a la axios por image_reference
-    /* export function showDogDetails(id) {
 
-        return async function (dispatch) {
-          try {
-            const response = await axios.get(`${axios}/dog/${id}`);
-            const details = response.data;
-      
-            // Si hay un reference_image_id, hacemos otra petición para obtener la axios de la imagen
-            if (details.reference_image_id) {
-              const imageResponse = await axios.get(`https://api.thedogapi.com/v1/images/${details.reference_image_id}`);
-              const imageDetails = imageResponse.data;
-              details.image.axios = imageDetails.url; // Agregamos la URL de la imagen a los detalles
-            }
-      
-            return dispatch({
-              type: "SHOW_DOG_DETAILS",
-              payload: details,
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        };
-      } */
+    
    
       export const filterByOrigin = (origin) => {
         return {
@@ -115,20 +93,21 @@ export function showDogDetails(id) {
       };  
 
 
-      export const createDog = (dogData) => async (dispatch) => {
-        try {
-          const response = await axios.post('http://localhost:3001/create', dogData);
-          if (response.status === 200) {
-            // Obtén el nuevo perro creado del objeto response
-            const newDog = response.data;
-            // Dispara una acción para agregar el nuevo perro al estado global
-            dispatch({
-              type: "ADD_NEW_DOG",
-              payload: newDog,
-            });
+      
+      export function createDog(dogData) {
+        return async function (dispatch) {
+          try {
+            const response = await axios.post('http://localhost:3001/create', dogData);
+            if (response.status === 200) {
+              console.log('Raza creada exitosamente:', response.data);
+              dispatch({
+                type: 'ADD_NEW_DOG',
+                payload: response.data,
+              });
+            }
+          } catch (error) {
+            console.error('Error al crear la raza:', error);
           }
-        } catch (error) {
-          throw error;
-        }
-      };
+        };
+      }  
 

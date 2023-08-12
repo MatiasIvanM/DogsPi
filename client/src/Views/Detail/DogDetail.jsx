@@ -101,11 +101,14 @@ const Detail = () => {
       <Link to="/home">
         <button className={style.button_home}>Home</button>
       </Link>
-      <div
-        className={style.background_image}
-        style={{ backgroundImage: `url("https://cdn2.thedogapi.com/images/${reference_image_id}.jpg")` }}
-      />
-      <div className={style.sub_container}>
+        <div
+          className={style.background_image}
+          style={{
+            backgroundImage: `url("https://cdn2.thedogapi.com/images/${reference_image_id}.jpg")`,
+          }}
+        >
+        </div>
+       <div className={style.sub_container}>
         <div className={style.container_elements}>
           <div className={style.right_container}>
             <h1>{name}</h1>
