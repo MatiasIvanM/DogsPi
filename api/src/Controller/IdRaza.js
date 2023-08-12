@@ -37,7 +37,7 @@ const getRazaApi = async (idSearch) => {
 const getIdRaza = async (req, res) => {
   const {id} = req.params;
   try {
-    if (id.length = NaN) {
+    if (id.length > 3) {
       const dogRazaDb = await getRazaDb(id);
       return res.status(200).send(dogRazaDb);
     } else {
