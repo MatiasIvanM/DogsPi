@@ -1,81 +1,83 @@
-.dog-form {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: center;
+  height: 100vh;
 }
 
-.button-to-home {
-  margin-top: 20px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.field {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.input-name,
-.min-height,
-.max-height,
-.min-weight,
-.max-weight,
-.life-span,
-.image-container input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.temperaments-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.gridItem {
+  display: flex;
+  flex-direction: column;
 }
 
-.selected-temperament {
-  display: inline-block;
-  background-color: #f0f0f0;
-  padding: 5px 10px;
-  margin-right: 5px;
+.label {
+  font-weight: bold;
+}
+
+.temperamentContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-top: 5px;
+}
+
+.dropdown {
+  padding: 8px;
+}
+
+.option {
+  padding: 8px;
+  background-color: #f0f0f0;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.container-button-add-dog {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-.button-add-dog,
-.button-cancel {
-  background-color: #3498db;
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.button-add-dog:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.button-cancel {
-  background-color: #e74c3c;
+.button:hover {
+  background-color: #0056b3;
 }
