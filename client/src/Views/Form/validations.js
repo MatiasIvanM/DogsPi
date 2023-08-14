@@ -11,6 +11,9 @@ function validateFormData(formData) {
       errors.height = 'Both minimum and maximum height values are required.';
     } else if (!/^\d+$/.test(formData.heightMin) || !/^\d+$/.test(formData.heightMax)) {
       errors.height = 'Height values should be valid numbers.';
+    } else if (formData.heightMin > formData.heightMax) {
+      errors.height = 'Minimum height value cannot be greater than maximum height value.';
+    
     }
   
     // Validación para los campos de peso
@@ -18,6 +21,9 @@ function validateFormData(formData) {
       errors.weight = 'Both minimum and maximum weight values are required.';
     } else if (!/^\d+$/.test(formData.weightMin) || !/^\d+$/.test(formData.weightMax)) {
       errors.weight = 'Weight values should be valid numbers.';
+    }else if (formData.weightMin > formData.weightMax) {
+      errors.weight = 'Minimum height value cannot be greater than maximum height value.';
+    
     }
   
     // Validación para el campo "lifeSpan"

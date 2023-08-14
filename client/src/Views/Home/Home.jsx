@@ -122,25 +122,19 @@
           originFilter={originFilter}
         />
   
-        <hr />
-        <div className={style.main_container}>
-        {searchError && <p className={style.error_message}>{errorMessage}</p>}
-
-        {originFilter === "DB" && currentDogs.length === 0 && (
-          <p>No hay razas creadas en la base de datos local.</p>
-        )}
-
-          <div className={style.container_cards}>
-            {currentDogs.map((dog) => (
-              <div className={style.container_card} key={dog.id}>
-                <div>
-                  <Card dog={dog} />
-                </div>
-              </div>
-            ))}
-          </div>
+  <hr />
+  <div className = {style.bg_image}>
+      <div className={style.main_container}>
+        <div className={style.container_cards}>
+          {currentDogs.map((dog) => (
+            <div className={style.container_card} key={dog.id}>
+              <Card dog={dog} />
+            </div>
+          ))}
+        </div>
+      </div>
       </div>
     </>
   );
-}
+};
 

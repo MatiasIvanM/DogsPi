@@ -1,96 +1,39 @@
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.button {
-  background-color: #3498db;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-}
-
-.pagination button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.pagination span {
-  margin: 0 10px;
-  font-size: 1.2em;
-}
-
-.header_container_left {
-  display: flex;
-  align-items: center;
-}
-
-.container_filters {
-  display: flex;
-  align-items: center;
-}
-
-.container_filters select {
-  margin-right: 10px;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.button_add_dog {
-  background-color: #3498db;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.bg_image{
+  background-image: url('../../Components/Image/Bg_Razas.jpg'); 
 }
 
 .main_container {
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
+
+ padding: 20px;
 }
 
- .container_cards {
+.container_cards {
+  padding-top: 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 57px;
 }
 
-hr {
-  border: 1px solid #ccc;
-  margin: 10px 0;
-}
-
-.error_message {
-  color: red;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-/* .container_card { ajuste de las cards
+.container_card {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
 }
 
-.container_card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} */ 
+/* Estilos para los mensajes de error */
+.error_message {
+  color: #ff0000; /* Color de mensaje de error */
+  text-align: center;
+  margin: 20px 0;
+}
 
+/* Estilos para el hr */
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+/* Estilos para el fondo del componente */
+body {
+  background-color: #f0f7f4; /* Color de fondo pastel */
+}

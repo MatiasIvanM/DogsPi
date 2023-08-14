@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { createDog } from '../../Redux/Actions/actions';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { createDog } from '../../Redux/Actions/actions';
 import validateFormData from './validations';
 import styles from './Form.module.css';
 
@@ -9,9 +10,9 @@ const FormComponent = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  let temperamentos = useSelector((state) => state.temperaments);
-
+  const [successMessage, setSuccessMessage] = useState('');
   const [temp, setTemp] = useState([]);
+  let temperamentos = useSelector((state) => state.temperaments);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -64,6 +65,17 @@ const FormComponent = () => {
     }));
   };
 
+  const handleCancel = (e) => {
+    e.preventDefault();
+    const userConfirmation = window.confirm(
+      'Are you sure to go back home?\nAll changes will be discarded.'
+    );
+    if (userConfirmation) {
+      // Redirigir al usuario a la página de inicio si confirma
+      window.location.href = '/home';
+    }
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,7 +104,12 @@ const FormComponent = () => {
       temperaments: formData.temperaments,
     };
 
-    setErrors({}); // Limpiar errores
+    
+
+    try {
+      await dispatch(createDog(formattedData));
+      setSuccessMessage('The breed was created successfully.');
+      setErrors({}); // Limpiar errores
     setFormData({
       // Limpiar el formulario después de enviar
       name: '',
@@ -104,10 +121,6 @@ const FormComponent = () => {
       image: '',
       temperaments: [],
     });
-
-    try {
-      await dispatch(createDog(formattedData));
-      // Resto del código después de enviar el formulario
     } catch (error) {
       setError(error);
     } finally {
@@ -115,17 +128,18 @@ const FormComponent = () => {
     }
   };
 
-
-
-
-
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Crear Nueva Raza</h1>
+      <div className={styles.pageTop}>
+        <Link to="/home">
+          <button className={`${styles.button_home} ${styles.closeBtn}`}>Home</button>
+        </Link>
+      </div>
+      <h1 className={styles.title}>Add New Breed</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* Renderización de campo de nombre */}
         <div className={styles.field}>
-          <label htmlFor="name">Nombre:</label>
+          <label htmlFor="name">Breed Name:</label>
           <input
             type="text"
             id="name"
@@ -139,7 +153,7 @@ const FormComponent = () => {
         {/* Renderización de campos de altura */}
         <div className={styles.gridContainer}>
           <div className={styles.gridItem}>
-            <label htmlFor="heightMin">Altura Mínima (cm):</label>
+            <label htmlFor="heightMin">Min Heigh (cm):</label>
             <input
               type="number"
               id="heightMin"
@@ -149,7 +163,7 @@ const FormComponent = () => {
             />
           </div>
           <div className={styles.gridItem}>
-            <label htmlFor="heightMax">Altura Máxima (cm):</label>
+            <label htmlFor="heightMax">Max Heigh (cm):</label>
             <input
               type="number"
               id="heightMax"
@@ -168,7 +182,7 @@ const FormComponent = () => {
         {/* Renderización de campos de peso */}
         <div className={styles.gridContainer}>
           <div className={styles.gridItem}>
-            <label htmlFor="weightMin">Peso Mínimo (kg):</label>
+            <label htmlFor="weightMin">Min Weight (kg):</label>
             <input
               type="number"
               id="weightMin"
@@ -178,7 +192,7 @@ const FormComponent = () => {
             />
           </div>
           <div className={styles.gridItem}>
-            <label htmlFor="weightMax">Peso Máximo (kg):</label>
+            <label htmlFor="weightMax">Max Weight (kg):</label>
             <input
               type="number"
               id="weightMax"
@@ -196,7 +210,7 @@ const FormComponent = () => {
 
         {/* Renderización de campo de esperanza de vida */}
         <div className={styles.field}>
-          <label htmlFor="lifeSpan">Esperanza de Vida:</label>
+          <label htmlFor="lifeSpan">Life Span:</label>
           <input
             type="text"
             id="lifeSpan"
@@ -212,7 +226,7 @@ const FormComponent = () => {
         {/* Renderización de campo de temperamentos */}
         <div className={styles.field}>
           <label htmlFor="temperaments" className={styles.label}>
-            Temperamentos:
+            Temperaments:
           </label>
           <div className={styles.temperamentContainer}>
             <select
@@ -221,7 +235,7 @@ const FormComponent = () => {
               onChange={handleOnChangeTemp}
             >
               <option value="DEFAULT" disabled className={styles.texto}>
-                Temperamentos
+                Temperaments
               </option>
               {temperamentos.map((t) => (
                 <option key={t.id} value={t.name}>
@@ -244,7 +258,7 @@ const FormComponent = () => {
 
         {/* Renderización de campo de URL de imagen */}
         <div className={styles.field}>
-          <label htmlFor="image">URL de la Imagen:</label>
+          <label htmlFor="image">Image URL:</label>
           <input
             type="url"
             id="image"
@@ -260,9 +274,17 @@ const FormComponent = () => {
         {/* Renderización de botón de envío */}
         <div className={styles.field}>
           <button type="submit" className={styles.button}>
-            Crear Raza
+            Add Breed
+          </button>
+          <button type="button" onClick={handleCancel} className={styles.button}>
+            Cancel
           </button>
         </div>
+        {successMessage && (
+          <div className={styles.successMessage}>
+            {successMessage}
+          </div>
+        )}
       </form>
     </div>
   );

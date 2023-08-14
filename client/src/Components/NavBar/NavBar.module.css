@@ -1,124 +1,115 @@
 .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #f1f1f1;
-  }
-  
-  .button {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
-  .pagination {
-    display: flex;
-    align-items: center;
-  }
-  
-  .pagination button {
-    padding: 8px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-  
-  .pagination span {
-    margin: 0 10px;
-    font-size: 16px;
-  }
-  
-  .header_container_left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .container_filters {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .container_filters select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    cursor: pointer;
-  }
-  
-  .header_right .button_add_dog {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .header_right .button_add_dog:hover {
-    background-color: #1f8c39;
-  }
-  
-  /* Nueva barra de búsqueda */
-  
-  .searchForm {
-    display: flex;
-    align-items: center;
-  }
-  
-  .searchForm input {
-    padding: 8px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    outline: none;
-  }
-  
-  .searchForm button {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .searchForm button:hover {
-    background-color: #0056b3;
-  }
-  
-  .suggestionsList {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    z-index: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .suggestionsList li {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .suggestionsList li:hover {
-    background-color: #f1f1f1;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #f9f9f9;
+  padding: 10px 20px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.container_filters {
+  display: flex;
+  align-items: center;
+}
+
+.container_filters select {
+  font-size: 1rem;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #bfd8d2;
+  border-radius: 5px;
+}
+
+.button_create_dog {
+  background-color: #de744c;
+  color: #f9f9f9;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button_create_dog:hover {
+  background-color: #bf8f6d;
+}
+
+.button {
+  background-color: #de744c;
+  color: #f9f9f9;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: #bf8f6d;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.pagination button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.pagination span {
+  font-size: 1.2rem;
+  margin: 0 10px;
+  color: #141414;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+}
+
+.searchForm input {
+  font-size: 1rem;
+  padding: 8px;
+  border: 1px solid #bfd8d2;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 200px;
+}
+.errorMsg {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* .suggestionsList {
+  list-style-type: none;
+  padding: 0;
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid #bfd8d2;
+  border-radius: 5px;
+  width: 200px;
+  z-index: 1;
+}
+
+.suggestionsList li {
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.suggestionsList li:hover {
+  background-color: #de744c;
+  color: #f9f9f9;
+} */

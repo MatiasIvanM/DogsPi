@@ -1,75 +1,103 @@
-.detail_container {
+.breedDetails {
+  background-image: url('../../Components/Image/Bg_Huesos.png');
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.pageTop {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #de744c;
+  opacity: 0.9;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.imageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f0f0f0;
+  margin-bottom: 20px;
 }
 
-.button_home {
-  position: fixed;
-  top: 15px;
-  left: 25px;
-  background-color: #4285f4;
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: "Arial", sans-serif;
-  font-size: 18px;
+.dogImage {
+  max-width: 100%;
+  max-height: 50vh;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
-.card {
-  display: flex;
-  background-color: #fff;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-  max-width: 100vh;
-  margin: 0 auto;
-}
-
-.grid_container {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 20px;
-}
-
-.image_container {
-  overflow: hidden;
-  position: relative;
-}
-
-.image {
-  width: auto !important;
-  height: 95vh;
-}
-
-.data_container {
-  padding-top: 10px;
-  padding: 30px;
+.breedInfo {
   display: flex;
   flex-direction: column;
-  font-family: "Arial", sans-serif;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
 }
 
-.info_card {
-  margin: 15px 0;
-  padding: 15px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+.breedTitle {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #de744c;
 }
 
-.list_container {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.info_card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #141414;
 }
 
-.list_container li {
+.info_card p {
+  font-size: 1rem;
+  color: #141414;
   margin: 5px 0;
 }
 
+.list_container {
+  list-style-type: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+.list_container li {
+  font-size: 1rem;
+  color: #141414;
+  margin: 5px;
+}
+
+.closeBtn {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: #141414;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #de744c;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.closeBtn:hover {
+  background-color: #de744c;
+  color: #f9f9f9;
+}
