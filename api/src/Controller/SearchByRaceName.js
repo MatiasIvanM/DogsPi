@@ -54,7 +54,7 @@ async function searchDogs(req, res) {
   } else {
    return res.json( allMatchedBreeds )};
  } catch (error) {
-   console.error('Error occurred during API request:', error.message);
+   //console.error('Error occurred during API request:', error.message);
    //return res.status(500).json({ error: 'Internal server error.' });
    return res.status(400).json({ error: 'Search term is missing in the request.' });
  }

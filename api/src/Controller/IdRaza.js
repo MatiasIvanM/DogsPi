@@ -22,7 +22,7 @@ const getRazaDb = async (idSearch) => {
     temperament: temperaments,
   };
 
-  console.log("🚀 ~ file: IdRaza.js:17 ~ getRazaDb ~ resultDb:", modifiedResult);
+  //console.log("🚀 ~ file: IdRaza.js:17 ~ getRazaDb ~ resultDb:", modifiedResult);
   
   return modifiedResult;
 };
