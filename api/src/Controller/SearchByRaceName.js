@@ -1,7 +1,8 @@
 require("dotenv").config();
 const axios = require('axios');
 const { Op } = require('sequelize');
-const { Dog, Temperament } = require('../db');
+const { Dog,  } = require('../db');
+const getImageApi = require('./getImageApi');
 const { API_KEY, URL } = process.env;
 
 
@@ -19,19 +20,21 @@ async function searchDogs(req, res) {
     const data = response.data;
    // Filter the data that match the search term
    const apimatchedBreeds = data.filter((breed) => breed.name.toLowerCase().includes(searchTerm.toLowerCase()));
-
+   
    // Map the filtered data
-   const apimatchedBreedDetails = apimatchedBreeds.map((breed) => {
+   const apimatchedBreedDetails = await Promise.all(apimatchedBreeds.map(async (breed) => {
+    const imageUrl = await getImageApi(breed.reference_image_id);
      return {
        id: breed.id,
-       image: breed.image.url,
+       image: imageUrl,
        name: breed.name,
        height: breed.height,
        weight: breed.weight,
        life_span: breed.life_span,
        temperament: breed.temperament,
      };
-   });
+    }));
+
 
    const localMatchedBreeds = await Dog.findAll({
     where: {
@@ -42,7 +45,9 @@ async function searchDogs(req, res) {
   });
 
 //merge data 
-  const allMatchedBreeds = [...apimatchedBreedDetails, ...localMatchedBreeds];
+//image pushing 
+
+  const allMatchedBreeds = [...localMatchedBreeds, ...apimatchedBreedDetails];
 
   if (allMatchedBreeds.length === 0) {
     return res.status(404).json({ error: 'No se encontraron resultados para la búsqueda.' });
